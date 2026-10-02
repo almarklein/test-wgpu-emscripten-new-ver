@@ -5,6 +5,10 @@
 Proof of Concept for using wasm-bindgen with an Emscripten build, which
 is supported as of Emscripten v6.0.10
 
+The `main.rs` implements two functions, which are called in the `index.html`:
+* `request_adapter_js()` calls out to JS with `js_sys`, no wgpu. Returns adapter object.
+* `request_adapter_wgpu()` uses wgpu to create an adapter (which calls out to JS). Returns adapter info.
+
 
 ## Install Emscripten SDK somewhere
 
