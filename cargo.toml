@@ -1,0 +1,15 @@
+[package]
+name = "emscripten-webgpu-test"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+wasm-bindgen = "0.2"
+wasm-bindgen-futures = "0.4"
+js-sys = "0.3"
+
+wgpu = { version = "30", default-features = false, features = ["webgpu", "web"] }
+
+# Use local modified version of wgpu
+[patch.crates-io]
+wgpu = { path = "../wgpu/wgpu" }

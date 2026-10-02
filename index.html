@@ -1,0 +1,56 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Emscripten + wasm-bindgen + WebGPU</title>
+</head>
+<body>
+    <pre id="output">Loading...</pre>
+
+    <script type="module">
+        import createModule
+            from "./target/wasm32-unknown-emscripten/release/emscripten-webgpu-test.js";
+
+        const output = document.getElementById("output");
+        output.textContent = "";
+
+        function disp(s1, s2) {
+            s1 = s1 || '';
+            s2 = s2 || '';
+            console.log(s1, s2);
+            output.textContent += (s1 + " " + s2).trimEnd() + "\n";
+        }
+
+        const module = await createModule();
+        disp("Emscripten module functions:", Object.keys(module).join(', '));
+        disp("backend_features: " + module.backend_features());
+        disp()
+
+        disp("===== Using JS navigator.gpu (no wgpu):")
+        try {
+
+            const adapter = await module.request_adapter_js();
+            disp("GPUAdapter: ", adapter);
+
+            const info = adapter.info;
+            disp("Adapter info: " + String(info));
+
+        } catch (error) {
+            console.error(error);
+            disp(String(error));
+        }
+        disp(" ")
+
+        disp("===== Using wgpu (which then goes through JS):")
+        try {
+
+            const adapter_info = await module.request_adapter_wgpu();
+            disp("GPUAdapter info: ", adapter_info);
+
+        } catch (error) {
+            console.error(error);
+            disp(String(error));
+        }
+    </script>
+</body>
+</html>

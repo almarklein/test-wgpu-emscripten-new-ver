@@ -1,0 +1,13 @@
+[build]
+target = "wasm32-unknown-emscripten"
+
+[target.wasm32-unknown-emscripten]
+rustflags = [
+    "-Cpanic=abort",
+    "-Cllvm-args=-enable-emscripten-cxx-exceptions=0",
+    "-Crelocation-model=static",
+    "-Clink-arg=-sWASM_BINDGEN",
+    "-Clink-arg=-Wno-experimental",
+    "-Clink-arg=-sMODULARIZE",
+    "-Clink-arg=-sEXPORT_ES6",
+]
