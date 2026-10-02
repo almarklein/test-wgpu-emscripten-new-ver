@@ -1,5 +1,7 @@
 # test-wgpu-emscripten-new-ver
 
+*License: all code in this repo is in the public domain.*
+
 Proof of Concept for using wasm-bindgen with an Emscripten build, which
 is supported as of Emscripten v6.0.10
 
